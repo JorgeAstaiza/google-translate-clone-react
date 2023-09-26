@@ -1,8 +1,9 @@
+import { AUTO_LANGUAGE } from '../constants'
 import { type Language, type Action, type State, type FromLanguage } from '../types'
 import { useReducer } from 'react'
 
 const initialState = {
-  fromLanguage: ' auto',
+  fromLanguage: 'auto',
   toLanguage: 'en',
   fromText: '',
   result: '',
@@ -15,6 +16,8 @@ function reducer (state: State, action: Action) {
 
   switch (type) {
     case 'INTERCHANGE_LANGUAGES':
+      if (state.fromLanguage === AUTO_LANGUAGE) return state
+
       return {
         ...state,
         fromLanguage: state.toLanguage,
